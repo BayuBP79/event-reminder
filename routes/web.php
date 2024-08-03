@@ -15,10 +15,10 @@ Route::view('profile', 'profile')
 Route::group(['prefix' => 'event', 'as' => 'event.'], function () {
     Route::get('/', function () {
         return view('event.index');
-    })->name('index');
+    })->name('index')->middleware(['auth']);
     Route::get('{event}/reminder', function () {
         return view('event.reminder');
-    })->name('reminder');
-})->middleware(['auth']);
+    })->name('reminder')->middleware(['auth']);
+});
 
 require __DIR__ . '/auth.php';

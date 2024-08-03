@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reminder extends Model
 {
     use HasFactory;
-    protected $fillable = ['event_id', 'reminder_date', 'message'];
+    protected $fillable = ['event_id', 'user_id', 'reminder_date', 'message'];
     protected $casts = [
         'reminder_date' => 'datetime',
     ];
