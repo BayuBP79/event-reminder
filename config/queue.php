@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Queue Connection Name
@@ -29,18 +28,16 @@ return [
     */
 
     'connections' => [
-
         'sync' => [
             'driver' => 'sync',
         ],
 
         'database' => [
             'driver' => 'database',
-            'connection' => env('DB_QUEUE_CONNECTION'),
-            'table' => env('DB_QUEUE_TABLE', 'jobs'),
-            'queue' => env('DB_QUEUE', 'default'),
-            'retry_after' => (int) env('DB_QUEUE_RETRY_AFTER', 90),
-            'after_commit' => false,
+            'table' => 'jobs',
+            'connection' => 'mysql',
+            'queue' => env('HORIZON_QUEUE', 'default'),
+            'retry_after' => 90,
         ],
 
         'beanstalkd' => [
@@ -71,7 +68,6 @@ return [
             'block_for' => null,
             'after_commit' => false,
         ],
-
     ],
 
     /*
@@ -108,5 +104,4 @@ return [
         'database' => env('DB_CONNECTION', 'sqlite'),
         'table' => 'failed_jobs',
     ],
-
 ];

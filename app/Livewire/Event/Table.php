@@ -95,6 +95,13 @@ class Table extends Component
                 'description' => $this->description,
                 'event_date' => Carbon::parse($this->event_date)->format('Y-m-d\TH:i'),
             ]);
+
+            $existingParticipants = EventParticipant::where('event_id', $this->eventData->id)->pluck('email');
+            $newParticipantEmails = array_column($this->participants, 'email');
+            $emailsToRemove = $existingParticipants->diff($newParticipantEmails);
+            EventParticipant::where('event_id', $this->eventData->id)
+                ->whereIn('email', $emailsToRemove)
+                ->delete();
         } else {
             $this->eventData = Event::create([
                 'id' => Event::generateEventId(),

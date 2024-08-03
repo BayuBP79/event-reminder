@@ -1,8 +1,23 @@
 <?php
 
+use App\Models\Reminder;
+use App\Mail\ReminderEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
+
+Route::get('sendemail/{id}', function ($id) {
+    $reminder = Reminder::find($id);
+
+    if ($reminder) {
+        // Send the email
+        Mail::to('yuucodesofficial@gmail.com')->send(new ReminderEmail($reminder));
+        return 'Email sent successfully';
+    } else {
+        return 'Reminder not found';
+    }
+});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

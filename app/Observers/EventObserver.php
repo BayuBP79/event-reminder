@@ -12,6 +12,7 @@ class EventObserver
         $reminderDate = Carbon::parse($event->event_date)->subMinutes(30);
 
         $event->reminders()->create([
+            'user_id' => $event->user_id,
             'reminder_date' => $reminderDate,
             'message' => 'Reminder: ' . $event->title . ' is starting soon!'
         ]);
