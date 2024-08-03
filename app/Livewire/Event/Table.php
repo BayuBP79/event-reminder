@@ -39,8 +39,14 @@ class Table extends Component
         'event_date' => 'required|date',
     ];
 
+    protected $listeners = ['updateEvent'];
+
     public function mount()
     {
+        if (app()->environment('local')) {
+            $this->dispatch('loadEvents');
+        }
+
         $this->event_date = Carbon::now()->format('Y-m-d\TH:i');
         $this->currentUser = auth()->user()->id;
     }
